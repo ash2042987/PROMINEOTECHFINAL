@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">
+		%d{yyyy-MM-dd MM:mm:ss.SSS} %5p.{hostName}
+		---[%15.15t] %-40.40c(1.) : %n%n%ex
+		</Property>
+	
+	</Properties>
+	<Appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT"
+		follow="true">
+		<PatternLayout pattern="$(LOG_PATTERN)" ></PatternLayout>
+		</Console>
+		<RollingFile name "FileAppender"
+			fileName="Logs/Log4j2-example.Log"
+			filePattern="Logs/Log4j2-example-%d{yyyy-MM-dd}-%{.log">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggerPolicy size="10MB" !>
+			</Policies>
+			<DefaultRolloverStrategy max="10" !>
+			</RollingFile>
+			</Appenders>
+		<Loggers>
+			<Logger name="com.example.log42jexample" level="debug"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender" !>
+			</Logger>
+			<Root level="info">
+			<AppenderRef ref="ConsoleAppender" !>
+			<AppenderRef ref="FileAppender" !>
+			</AppenderRef>
+			</Root>
+		</Loggers>
+</Configuration>
